@@ -1,4 +1,3 @@
-"use client";
 // Dependencies
 import { useTheme } from "@mui/material/styles";
 // import { Dispatch, SetStateAction } from "react";
@@ -49,9 +48,9 @@ const Sidebar = () => {
     <Container toggle={1}>
       <InnerContainer>
         <Organization>
-          {/* <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <StyledIconButton sx={{ marginLeft: "-6px" }}>
-              <Logo width="36" height="36" />
+              {/* <Logo width="36" height="36" /> */}
             </StyledIconButton>
             {true && (
               <Typography
@@ -65,7 +64,7 @@ const Sidebar = () => {
                 Medical Image Analytics
               </Typography>
             )}
-          </Box> */}
+          </Box>
           {true && (
             <StyledIconButton
             // onClick={() => setToggle(!toggle)}

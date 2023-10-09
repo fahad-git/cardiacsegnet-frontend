@@ -22,8 +22,6 @@ declare module "@mui/material/styles" {
   interface CommonColors {
     chablis: string;
     isabelline: string;
-    vistaWhite: string;
-    razzmatazz: string;
   }
 }
 
@@ -53,7 +51,7 @@ const themeOptions: ThemeOptions = {
       default: "#ffffff",
     },
     primary: {
-      main: colors.razzmatazz,
+      main: "#1976d2",
     },
     text: {
       primary: "#000000",
@@ -61,8 +59,6 @@ const themeOptions: ThemeOptions = {
     common: {
       chablis: colors.chablis,
       isabelline: colors.isabelline,
-      vistaWhite: colors.vistaWhite,
-      razzmatazz: colors.razzmatazz,
     },
   },
 };

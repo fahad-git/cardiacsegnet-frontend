@@ -10,15 +10,15 @@ type SidebarProps = {
 };
 
 export const Container = styled(Box)<SidebarProps>(({ toggle, theme }) => ({
-  width: toggle === 1 ? "220px" : "50px",
-  minWidth: toggle === 1 ? "220px" : "50px",
+  width: toggle === 1 ? "240px" : "50px",
+  minWidth: toggle === 1 ? "192px" : "50px",
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
   position: "relative",
   borderRight: `1px solid var(--gray-200, ${theme.palette.common.chablis})`,
-  backgroundColor: theme.palette.common.vistaWhite,
+  backgroundColor: theme.palette.common.isabelline,
   top: 0,
   left: 0,
   bottom: 0,
