@@ -5,7 +5,41 @@ import { Box, Input } from "@mui/material";
 import Button from "@mui/material/Button";
 import Navbar from "@/components/Navbar";
 
-function page() {
+function LoginPage() {
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleLogin = async () => {
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/login/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        if (data.redirect) {
+            window.location.href = data.redirect;
+        } else {
+            alert(data.detail);
+        }
+    } catch (error) {
+        console.error("Error during login:", error);
+    }
+  };
+
+
+  const handleGuestLogin = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/guest/");
+      const data = await response.json();
+      alert(data.detail);
+    } catch (error) {
+      console.error("Error during guest login:", error);
+    }
+  };
+
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Navbar />
@@ -20,38 +54,36 @@ function page() {
         <div>
           <p> Username </p>
           <Input
-            placeholder="..."
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             sx={{ bgcolor: "text.disabled", height: 50, width: 300 }}
           />
         </div>
         <div style={{ padding: "4%" }}>
           <p> Password </p>
           <Input
-            placeholder="..."
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             sx={{ bgcolor: "text.disabled", height: 50, width: 300 }}
           />
         </div>
         <Button
-          onClick={() => {
-            alert("You clicked me!");
-          }}
+          onClick={handleLogin}
           sx={{ height: 50, width: 100, border: "1px solid grey" }}
         >
           Login
         </Button>
         <Button
           onClick={() => {
-            alert("You clicked me!");
+            alert("You clicked me! But we currently accept only username/password login!!");
           }}
           sx={{ padding: "4%" }}
         >
           Register user
         </Button>
         <Button
-          onClick={() => {
-            alert("You clicked me!");
-          }}
-          sx={{ color: "text.secondary" }}
+          onClick={handleGuestLogin} sx={{ padding: "4%" }}
         >
           Enter as guest
         </Button>
@@ -60,4 +92,4 @@ function page() {
   );
 }
 
-export default page;
+export default LoginPage;
