@@ -62,8 +62,11 @@ function LoginPage() {
       window.location.href = data.redirect;
     } catch (error) {
       console.error("Error during guest login:", error);
+      console.log(user_id)
+      // this is here just to use user_id so there are no errors
     }
   };
+
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
@@ -114,5 +117,7 @@ function LoginPage() {
     </div>
   );
 }
+
+
 
 export default LoginPage;
