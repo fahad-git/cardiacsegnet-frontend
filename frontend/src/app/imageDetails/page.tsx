@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Input } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 import Navbar from "@/components/Navbar";
 
 function page() {
