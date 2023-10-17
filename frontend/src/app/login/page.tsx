@@ -29,6 +29,27 @@ function LoginPage() {
     }
   };
 
+  const handleRegister = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/new/", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username , password }),
+      });
+      const data = await response.json();
+      console.log('Response from server:', data);
+      
+      if (data.redirect) {
+          window.location.href = data.redirect;
+      } else {
+          alert(data.detail);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  }
 
   const handleGuestLogin = async () => {
     try {
@@ -75,9 +96,7 @@ function LoginPage() {
           Login
         </Button>
         <Button
-          onClick={() => {
-            alert("You clicked me! But we currently accept only username/password login!!");
-          }}
+          onClick={handleRegister}
           sx={{ padding: "4%" }}
         >
           Register user
