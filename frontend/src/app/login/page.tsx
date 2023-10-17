@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 function LoginPage() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  let user_id = 0
 
   const handleLogin = async () => {
     try {
@@ -19,7 +20,8 @@ function LoginPage() {
             body: JSON.stringify({ username, password }),
         });
         const data = await response.json();
-        if (data.redirect) {
+        if (data.status === "success") {
+            user_id = data.id
             window.location.href = data.redirect;
         } else {
             alert(data.detail);
@@ -29,12 +31,35 @@ function LoginPage() {
     }
   };
 
+  const handleRegister = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/new/", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username , password }),
+      });
+      const data = await response.json();
+      console.log('Response from server:', data);
+      
+      if (data.status === "success") {
+          user_id = data.id
+          window.location.href = data.redirect;
+      } else {
+          alert(data.detail);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  }
 
   const handleGuestLogin = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/api/guest/");
       const data = await response.json();
-      alert(data.detail);
+      user_id = data.id
+      window.location.href = data.redirect;
     } catch (error) {
       console.error("Error during guest login:", error);
     }
@@ -75,9 +100,7 @@ function LoginPage() {
           Login
         </Button>
         <Button
-          onClick={() => {
-            alert("You clicked me! But we currently accept only username/password login!!");
-          }}
+          onClick={handleRegister}
           sx={{ padding: "4%" }}
         >
           Register user
