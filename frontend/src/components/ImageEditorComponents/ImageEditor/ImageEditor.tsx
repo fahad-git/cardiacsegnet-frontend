@@ -94,6 +94,19 @@ function ImageEditor() {
     e: React.MouseEvent<HTMLElement>,
     newValue: string | null
   ) => {
+    if (newValue === "rectangle") {
+      setRectangles([
+        ...rectangles,
+        {
+          x: 10,
+          y: 10,
+          width: 100,
+          height: 100,
+          fill: "pink",
+          id: "rect" + rectangles.length + 1,
+        },
+      ]);
+    }
     if (newValue === tool || newValue === "rectangle") {
       setTool(null);
     } else {

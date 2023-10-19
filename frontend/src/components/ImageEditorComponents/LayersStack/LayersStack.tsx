@@ -52,6 +52,25 @@ function LayersStack() {
             <VisibilityOffIcon />
           </IconContainer>
         </Item>
+        <Item>
+          Item 2
+          <IconContainer>
+            <VisibilityOffIcon />
+          </IconContainer>
+        </Item>
+        <Item>
+          Item 2
+          <IconContainer>
+            <VisibilityOffIcon />
+          </IconContainer>
+        </Item>
+        <Item>
+          Item 2
+          <IconContainer>
+            <VisibilityOffIcon />
+          </IconContainer>
+        </Item>
+
         {/* <Item>Item 3</Item>
         <Item>Item 1</Item>
         <Item>Item 2</Item>
