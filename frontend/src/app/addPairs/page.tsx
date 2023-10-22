@@ -2,14 +2,14 @@
 
 import React from "react";
 import { Box, Button, IconButton } from "@mui/material";
-import Navbar from "@/components/Navbar";
+import NavbarLoggedIn from "@/components/Navigation/NavbarLoggedIn";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 function page() {
   return (
     <div>
-      <Navbar />
+      <NavbarLoggedIn />
       <Box
         sx={{
           display: "flex",
@@ -17,7 +17,7 @@ function page() {
           justifyContent: "center",
           alignItems: "center",
           m: 2,
-          height: 1000,
+          height: 700,
         }}
       >
         <Box
@@ -85,12 +85,12 @@ function page() {
         </Box>
 
         <Box>
-        <Button
-              variant="contained"
-              sx={{ bgcolor: "text.disabled", mb: 2, width: 200, height: 50 }}
-            >
-              Save
-            </Button>
+          <Button
+            variant="contained"
+            sx={{ bgcolor: "text.disabled", mb: 2, width: 200, height: 50 }}
+          >
+            Save
+          </Button>
         </Box>
       </Box>
     </div>
