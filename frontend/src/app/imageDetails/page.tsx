@@ -2,13 +2,13 @@
 
 import React from "react";
 import { Box } from "@mui/material";
-import Navbar from "@/components/Navbar";
+import NavbarLoggedIn from "@/components/Navigation/NavbarLoggedIn";
 
 function page() {
   return (
     <div>
-      <Navbar />
-      <div  style={{  }}>
+      <NavbarLoggedIn />
+      <div style={{}}>
         <Box
           sx={{
             display: "flex",
@@ -27,7 +27,9 @@ function page() {
               pr: 2,
             }}
           >
-            <Box sx={{ bgcolor: "text.disabled", height: "10%", mb: 1 }}>Drawing/Editing tool</Box>
+            <Box sx={{ bgcolor: "text.disabled", height: "10%", mb: 1 }}>
+              Drawing/Editing tool
+            </Box>
             <Box sx={{ bgcolor: "text.disabled", height: "90%" }}>Image</Box>
           </Box>
           <Box sx={{ bgcolor: "text.disabled", width: "30%" }}>Comments</Box>
