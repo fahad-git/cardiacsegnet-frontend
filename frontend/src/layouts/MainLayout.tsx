@@ -6,7 +6,7 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <div>
       <TopBar />
-      <div style={{ display: "flex", height: "100vh" }}>
+      <div style={{ display: "flex", height: "calc(100vh - 42px)" }}>
         <Sidebar />
         {children}
       </div>

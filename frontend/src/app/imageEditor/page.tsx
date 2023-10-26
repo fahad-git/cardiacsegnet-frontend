@@ -1,7 +1,7 @@
 "use client";
-import { MainLayout } from "@/layouts/MainLayout";
-import dynamic from "next/dynamic";
 import React from "react";
+import dynamic from "next/dynamic";
+import { MainLayout } from "@/layouts/MainLayout";
 
 const NoSSRImageEditorView = dynamic(() => import("@/views/ImageEditorView"));
 

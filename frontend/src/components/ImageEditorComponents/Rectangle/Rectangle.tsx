@@ -48,7 +48,8 @@ const Rectangle = ({
           const node = shapeRef.current;
           const scaleX = node?.scaleX();
           const scaleY = node?.scaleY();
-          console.log(typeof node);
+          const rotation = node?.rotation();
+
           // we will reset it back
           node?.scaleX(1);
           node?.scaleY(1);
@@ -57,6 +58,7 @@ const Rectangle = ({
             x: node?.x(),
             y: node?.y(),
             // set minimal value
+            rotation: rotation,
             width: Math.max(5, node?.width() * scaleX),
             height: Math.max(node?.height() * scaleY),
           });

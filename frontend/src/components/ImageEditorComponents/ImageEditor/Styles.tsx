@@ -31,3 +31,10 @@ export const ToolMenu = styled(Box)(({ theme }) => ({
   borderLeftColor: theme.palette.common.isabelline,
   backgroundColor: theme.palette.common.white,
 }));
+
+export const getErasorCursor = (size: number) =>
+  `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'><circle cx='${
+    size / 2
+  }' cy='${size / 2}' r='${size / 2}' fill='%23ffffff' /></svg>") ${size / 2} ${
+    size / 2
+  }, auto`;
