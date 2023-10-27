@@ -17,14 +17,14 @@ function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email: username, password }),
       });
       const data = await response.json();
-      if (data.status === "success") {
+      if (response.status === 200) {
         user_id = data.id;
-        window.location.href = data.redirect;
+        window.location.href = "/dashboard";
       } else {
-        alert(data.detail);
+        console.error(response.statusText);
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -59,7 +59,7 @@ function LoginPage() {
       const response = await fetch("http://127.0.0.1:8000/api/guest/");
       const data = await response.json();
       user_id = data.id;
-      window.location.href = data.redirect;
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error("Error during guest login:", error);
       console.log(user_id);
@@ -79,7 +79,7 @@ function LoginPage() {
         }}
       >
         <div>
-          <p> Username </p>
+          <p> Username or Email</p>
           <Input
             value={username}
             onChange={(e) => setUsername(e.target.value)}

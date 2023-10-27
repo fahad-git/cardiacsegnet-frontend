@@ -1,3 +1,5 @@
-export default function Home() {
-  return <div></div>;
+
+function App() {
+  return  <><div>Home Component Works</div></>
 }
+export default App

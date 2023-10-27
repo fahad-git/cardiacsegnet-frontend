@@ -1,6 +1,5 @@
-import Sidebar from "@/components/Sidebar/Sidebar";
-import { AppBar, Button, Grid, Tab, Tabs, Toolbar } from "@mui/material";
-import { PropsWithChildren, useState, useRef, ChangeEvent } from "react";
+import { Button, Grid } from "@mui/material";
+import { useState, useRef, ChangeEvent } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -37,7 +36,7 @@ const Maindashboard = () => {
     };
 
 
-    var settings = {
+    const settings = {
         dots: true,
         infinite: false,
         speed: 500,

@@ -1,14 +1,12 @@
 import Sidebar from "@/components/Sidebar/Sidebar";
-import { AppBar, Button, Grid, Tab, Tabs, Toolbar } from "@mui/material";
-import { PropsWithChildren, useState } from "react";
-import Maindashboard from "@/components/dashboard/maindashboard";
-import Slider from "react-slick";
+import { AppBar, Tab, Tabs, Toolbar} from "@mui/material";
+import { PropsWithChildren, } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React from "react";
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
-
+    
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <Sidebar />
@@ -23,12 +21,8 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
             </Tabs>
           </Toolbar>
         </AppBar>
-        <Maindashboard />
         {children}
       </div>
-
     </div>
-
-
   );
 };
