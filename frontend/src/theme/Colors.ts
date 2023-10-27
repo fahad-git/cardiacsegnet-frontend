@@ -3,7 +3,6 @@ const colors = {
   isabelline: "#f0ebeb",
   vistaWhite: "#fcf7f7",
   razzmatazz: "#e6104d",
-
 };
 
 export default colors;

@@ -2,10 +2,9 @@ export const SIDEBAR_ITEMS = [
   {
     id: 1,
     name: "Images",
-  
   },
-    // link: "images",
-  
+  // link: "images",
+
   {
     id: 2,
     name: "Add Images",
@@ -31,5 +30,4 @@ export const SIDEBAR_ITEMS = [
     name: "Save",
     // link: "images",
   },
-
 ];
