@@ -19,6 +19,7 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-icons": "^4.11.0",
     "react-konva": "^18.2.10",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
