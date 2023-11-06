@@ -23,7 +23,8 @@ export function navbarLoggedIn() {
         bgcolor: "#EAE1E1",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
+        px: 5,
       }}
     >
       <Box>Medical Image Analytics</Box>
@@ -54,7 +55,7 @@ export function navbarLoggedIn() {
         >
           <MenuItem>
             {" "}
-            <Link href="/" underline="none" color="inherit">
+            <Link href="/dashboard" underline="none" color="inherit">
               Dashboard
             </Link>
           </MenuItem>

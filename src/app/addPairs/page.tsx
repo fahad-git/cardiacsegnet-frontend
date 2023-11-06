@@ -10,6 +10,7 @@ function page() {
   return (
     <div>
       <NavbarLoggedIn />
+
       <Box
         sx={{
           display: "flex",
