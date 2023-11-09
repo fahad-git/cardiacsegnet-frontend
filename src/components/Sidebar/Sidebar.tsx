@@ -45,6 +45,10 @@ const Sidebar = () => {
   //     }
   //   };
 
+  const onItemClick = (redirectionPath: string) => {
+    window.location.href = "/" + redirectionPath;
+  }
+
   return (
     <Container toggle={1}>
       <InnerContainer>
@@ -79,7 +83,7 @@ const Sidebar = () => {
           <Box
             sx={{ cursor: "pointer" }}
             key={index}
-            // onClick={() => onItemClick(item.name)}
+            onClick={() => onItemClick(item.path)}
           >
             <NavItem
             //   onClick={() => handleNavItem(index, item.name)}
