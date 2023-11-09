@@ -1,0 +1,41 @@
+
+.image-viewer-container {
+    padding: 20px;
+  }
+  
+  .image-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  
+  .image-box {
+    height: 200px;
+    width: 200px; /* Set the desired fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px; 
+  }
+ 
+  
+  .placeholder-icon {
+    font-size: 48px; /* Adjust the size of the icon */
+  }
+
+  .captions-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column; /* Ensure captions are displayed below each image */
+  }
+  
+  .image-caption {
+    text-align: center;
+    margin-top: 8px;
+    font-weight: bold; /* Corrected the property value */
+    font-family: "Arial, sans-serif";
+    color: #333;
+    font-size: 14px;
+  }
+  
