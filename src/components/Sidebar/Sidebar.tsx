@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material/styles";
 // import { Dispatch, SetStateAction } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
 // Providers
 // import { useTabsContext } from "@/layouts/TabsProvider"
 // import { useToggleContext } from "@/layouts/ToggleProvider";
@@ -15,6 +14,13 @@ import Typography from "@mui/material/Typography";
 
 // Utils
 import { SIDEBAR_ITEMS } from "../../utils/constants";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+import HomeIcon from '@mui/icons-material/Home';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ShapeLineIcon from '@mui/icons-material/ShapeLine';
 
 // Styles
 import {
@@ -46,8 +52,27 @@ const Sidebar = () => {
   //   };
 
   const onItemClick = (redirectionPath: string) => {
-    window.location.href = "/" + redirectionPath;
+    window.location.href = redirectionPath;
   }
+
+  const renderIcon = (iconName: string) =>{
+    switch(iconName){
+      case 'Dashboard':
+        return <DashboardIcon />
+      case 'Home':
+        return <HomeIcon />
+      case 'PhotoLibrary':
+        return <PhotoLibraryIcon />
+      case 'Summarize':
+        return <SummarizeIcon />
+      case 'ShapeLine':
+        return <ShapeLineIcon />
+      case 'Logout':
+        return <LogoutIcon />
+      default:
+        return <MedicalServicesIcon />
+    }
+  } 
 
   return (
     <Container toggle={1}>
@@ -98,6 +123,8 @@ const Sidebar = () => {
                     fontWeight: 500,
                   }}
                 >
+                  {renderIcon(item.icon || "")}
+                  &nbsp;
                   {item.name}
                 </Typography>
               )}

@@ -18,7 +18,7 @@ export const Container = styled(Box)<SidebarProps>(({ toggle, theme }) => ({
   justifyContent: "space-between",
   position: "relative",
   borderRight: `1px solid var(--gray-200, ${theme.palette.common.chablis})`,
-  backgroundColor: theme.palette.common.vistaWhite,
+  backgroundColor: theme.palette.common.lightPurple,
   top: 0,
   left: 0,
   bottom: 0,

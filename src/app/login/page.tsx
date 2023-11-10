@@ -4,6 +4,7 @@ import React from "react";
 import { Box, Input } from "@mui/material";
 import Button from "@mui/material/Button";
 import Navbar from "@/components/Navigation/Navbar";
+import PATHS from "@/utils/paths";
 
 function LoginPage() {
   const [username, setUsername] = React.useState("");
@@ -22,7 +23,7 @@ function LoginPage() {
       const data = await response.json();
       if (response.status === 200) {
         user_id = data.id;
-        window.location.href = "/dashboard";
+        window.location.href = PATHS.HOME;
       } else {
         console.error(response.statusText);
       }
@@ -59,7 +60,7 @@ function LoginPage() {
       const response = await fetch("http://127.0.0.1:8000/api/guest/");
       const data = await response.json();
       user_id = data.id;
-      window.location.href = "/dashboard";
+      window.location.href = PATHS.HOME;
     } catch (error) {
       console.error("Error during guest login:", error);
       console.log(user_id);
