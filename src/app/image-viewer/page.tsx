@@ -1,45 +1,35 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Paper, Typography } from "@mui/material";
-import NavbarLoggedIn from "@/components/Navigation/NavbarLoggedIn";
+import { Grid, Paper, Typography } from "@mui/material";
 import "./image-viewer.css"
 import NoPhotographyOutlinedIcon from '@mui/icons-material/NoPhotographyOutlined';
+import { getAllImages } from "@/services/images";
+import { RESPONSE_CODES } from "@/utils/constants";
+import Loader from "@/components/loader/loader";
 
 function ImageViewer() {
-
-  const BASE_URL = "http://localhost:8000"
   const [images, setImages] = useState<Array<{ url: string; imageName: string }>>([]);
-
   useEffect(() => {
     // Fetch images from the API endpoint
     fetchImages();
   }, []);
 
   const fetchImages = async () => {
-    try {
-      const response = await fetch(BASE_URL + "/api/images/get-images-by-user", {
-        headers: {
-          authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcjIiLCJleHAiOjE2OTk2MzM0MTN9.LMmkbPzTSNjH3I9JKWXU0oqomtP719usEm99xzRSV5M`,
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      setImages(data); // Update state with fetched images
-    } catch (error) {
-      console.error("Error fetching images:", error);
-    }
+    const response = await getAllImages();
+    if (response.status === RESPONSE_CODES.SUCCESS) {
+      setImages(response.data); // Update state with fetched images
+    }else{
+      console.log("Error occured!")
+    }    
   };
 
   return <>
-
     <div className="image-viewer-container">
       <Grid container spacing={2}>
-        {images.map((image, index) => (
-          <Grid item key={index} xs={3}>
+        {images.length == 0 ? <Loader/>: images.map((image, index) => (
+          <Grid item key={index} xs={4}>
             <Paper className="image-box">
               {(image?.url && image.url !== "") ? (
                 <>
@@ -51,12 +41,12 @@ function ImageViewer() {
 
                 </>
               ) : (
-                <NoPhotographyOutlinedIcon className="placeholder-icon" />
+                <NoPhotographyOutlinedIcon className="placeholder-icon"/>
 
               )}
             </Paper>
             <div className="captions-container">
-            <Typography style={{paddingRight: "50px"}}
+            <Typography
                key={index}  className="image-caption"
               >
                 {image.imageName}
@@ -66,13 +56,6 @@ function ImageViewer() {
         ))}
 
       </Grid>
-      {/* <div className="captions-container">
-          {images.map((image, index) => (
-            <Typography variant="caption" key={index} className="image-caption">
-              {image.imageName}
-            </Typography>
-          ))}
-        </div> */}
     </div>
   </>
 }

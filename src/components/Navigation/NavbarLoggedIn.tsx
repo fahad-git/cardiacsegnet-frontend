@@ -1,12 +1,16 @@
-import { Box, Button, IconButton } from "@mui/material";
-import React from "react";
+/* eslint-disable @next/next/no-img-element */
+import { Box, IconButton } from "@mui/material";
+import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
+import PATHS from "@/utils/paths";
+import colors from "@/theme/Colors";
 
 export function navbarLoggedIn() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -19,15 +23,18 @@ export function navbarLoggedIn() {
     <Box
       sx={{
         width: "100%",
-        height: 60,
-        bgcolor: "#EAE1E1",
+        height: 65,
+        bgcolor: colors.lightBlue,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         px: 5,
+        color: colors.white,
       }}
     >
-      <Box>Medical Image Analytics</Box>
+      <Box><img src="/logo.png" className="logo" alt="MIA"/> </Box>
+
+      <Box><h2>Medical Image Analytics</h2></Box>
 
       <Box
         sx={{
@@ -40,8 +47,10 @@ export function navbarLoggedIn() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
+          style={{"outline": "none", "border": "none"}}
         >
-          <MenuIcon />
+          {/* <MenuIcon /> */}
+          <img src="/avatar.png" alt="Avatar" className="avatar" />
         </IconButton>
 
         <Menu
@@ -55,10 +64,17 @@ export function navbarLoggedIn() {
         >
           <MenuItem>
             {" "}
-            <Link href="/dashboard" underline="none" color="inherit">
+            <Link href={PATHS.DASHBOARD} underline="none" color="inherit">
               Dashboard
             </Link>
           </MenuItem>
+          <MenuItem>
+            {" "}
+            <Link href={PATHS.HOME} underline="none" color="inherit">
+              Home
+            </Link>
+          </MenuItem>
+
           <MenuItem>
             {" "}
             <Link href="/addPairs" underline="none" color="inherit">
@@ -76,7 +92,7 @@ export function navbarLoggedIn() {
           </MenuItem>
           <MenuItem>
             {" "}
-            <Link href="/login" underline="none" color="inherit">
+            <Link href={PATHS.LOGIN} underline="none" color="inherit">
               Log out
             </Link>
           </MenuItem>

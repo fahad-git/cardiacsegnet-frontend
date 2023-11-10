@@ -1,14 +1,12 @@
 "use client";
 
 import React from "react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Maindashboard from "@/components/dashboard/maindashboard";
 
 
-function DashboardPage(){
-
-    return <><Maindashboard /></>
+function Dashboard() {
+    return <>
+        <h2 className="dashboard">Dashboard is under construction <span className="spinner-border spinner-border-sm mr-1"></span> </h2>
+    </>
 }
 
-export default DashboardPage
+export default Dashboard;

@@ -24,6 +24,10 @@ declare module "@mui/material/styles" {
     isabelline: string;
     vistaWhite: string;
     razzmatazz: string;
+    lightBlue: string;
+    lightPurple: string;
+    black: string;
+    white: string;
   }
 }
 
@@ -53,16 +57,21 @@ const themeOptions: ThemeOptions = {
       default: "#ffffff",
     },
     primary: {
-      main: colors.razzmatazz,
+      main: colors.lightBlue,
     },
     text: {
-      primary: "#000000",
+      primary: colors.black,
+      secondary: colors.white
     },
     common: {
       chablis: colors.chablis,
       isabelline: colors.isabelline,
       vistaWhite: colors.vistaWhite,
       razzmatazz: colors.razzmatazz,
+      lightBlue: colors.lightBlue,
+      lightPurple: colors.lightPurple,
+      black: colors.black,
+      white: colors.white
     },
   },
 };

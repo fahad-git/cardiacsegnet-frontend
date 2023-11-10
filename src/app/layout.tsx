@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 // Dependencies
 import type { Metadata } from "next";
 
@@ -19,6 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>
