@@ -12,10 +12,13 @@ import { registerUser } from "@/services/auth";
 import { RESPONSE_CODES } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import PATHS from "@/utils/paths";
+import Loader from "@/components/loader/loader";
+import "./register.css"
 
 function Register(){
 
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
     const [togglePassword, setTogglePassword] = useState(false)
     const [togglePasswordConfirm, setTogglePasswordConfirm] = useState(false)
 
@@ -41,6 +44,7 @@ function Register(){
     const { errors } = formState;
 
     function onSubmit(userDetails: any) {
+        setIsLoading(true);
         const emailSplit = userDetails.email.split("@");
         const user: IUser = {
             name: userDetails.name,
@@ -51,11 +55,14 @@ function Register(){
         registerUser(user)
         .then(res => {
             if(res.status === RESPONSE_CODES.SUCCESS || res.status === RESPONSE_CODES.SUCCESS_WITHOUT_CONTENT){
-                console.log(res)
-                setTimeout(() => router.push(PATHS.LOGIN), 3000)
+                router.push(PATHS.LOGIN)
             }
+            setIsLoading(false);
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            setIsLoading(false);
+            console.log(err)
+        })
     }
 
     return <>
@@ -63,6 +70,12 @@ function Register(){
             <div className="title">Medical Image Analytics</div>
             <div className="card">
                 <h4 className="card-header">Register</h4>
+                {isLoading && (
+                    <>
+                        <div className="register-loader-container"></div>
+                        <Loader />
+                    </>
+                )}
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
