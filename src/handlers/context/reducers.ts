@@ -1,5 +1,5 @@
 import { saveState } from '@/utils/util-functions';
-import { UPDATE_USER, LOGOUT, INIT_STORE, INIT_STORE_DEFAULT } from './actions-constants';
+import { UPDATE_USER, LOGOUT, INIT_STORE, INIT_STORE_DEFAULT, UPDATE_IMAGES } from './actions-constants';
 import { IState, IActions } from './interfaces';
 
 export const initialState: IState = {
@@ -10,7 +10,9 @@ export const initialState: IState = {
         username: '',
         accessToken: '',
         refreshToken: ''
-    }
+    },
+    images: [],
+      
 };
 
 export const reducer = (state: IState, action: IActions) => {
@@ -25,6 +27,9 @@ export const reducer = (state: IState, action: IActions) => {
             break;
         case UPDATE_USER:
             updatedState = {...state, user: action.payload};            
+            break;
+        case UPDATE_IMAGES:
+            updatedState = {...state, images: action.payload};            
             break;
         case LOGOUT:
             updatedState = {...state, user: initialState.user};
