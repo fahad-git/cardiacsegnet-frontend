@@ -12,7 +12,7 @@ import { registerUser } from "@/services/auth";
 import { RESPONSE_CODES } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import PATHS from "@/utils/paths";
-import Loader from "@/components/loader/loader";
+import Loader from "@/handlers/loader/loader";
 import "./register.css"
 
 function Register(){

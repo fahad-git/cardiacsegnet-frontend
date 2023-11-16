@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 import { Box, IconButton } from "@mui/material";
 import React, { useState } from "react";
@@ -6,9 +7,14 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import PATHS from "@/utils/paths";
 import colors from "@/theme/Colors";
+import { useAppContext } from "@/handlers/context/app-context";
+import { IAppContext, IStateUser } from "@/handlers/context/interfaces";
 
 export function navbarLoggedIn() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+  // integrating context api
+  const { state }: IAppContext = useAppContext();
+  const user: IStateUser = state.user as IStateUser;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -48,10 +54,10 @@ export function navbarLoggedIn() {
           onClick={handleClick}
           style={{"outline": "none", "border": "none"}}
         >
+          <div className="user-name">{user?.name}</div>
           {/* <MenuIcon /> */}
           <img src="/avatar.png" alt="Avatar" className="avatar" />
         </IconButton>
-
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}

@@ -9,6 +9,7 @@ const CONFIG = {
     api: {
         login: "/login",
         register: "/register",
+        getMyProfile: "/me",
         getImagesByUser: "/images/get-images-by-user"
     }
 

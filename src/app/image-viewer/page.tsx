@@ -7,7 +7,7 @@ import "./image-viewer.css"
 import NoPhotographyOutlinedIcon from '@mui/icons-material/NoPhotographyOutlined';
 import { getAllImages } from "@/services/images";
 import { RESPONSE_CODES } from "@/utils/constants";
-import Loader from "@/components/loader/loader";
+import Loader from "@/handlers/loader/loader";
 
 function ImageViewer() {
   const [images, setImages] = useState<Array<{ url: string; imageName: string }>>([]);
