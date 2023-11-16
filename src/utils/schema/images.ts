@@ -4,4 +4,7 @@ export interface IImages {
     imageExtention: string;
     comments: string;
     imageAnnotations: object;
+    id: string;
+    uuid?: string
+
 }

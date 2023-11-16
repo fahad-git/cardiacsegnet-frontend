@@ -19,14 +19,14 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
+import { useRouter, useParams } from "next/navigation";
+import { useAppContext } from "@/handlers/context/app-context";
 
-// const imageUrl =
-//   "https://i0.wp.com/www.asktheradtech.com/wp-content/uploads/2020/04/7e6e9eb3b2da5092972fc27c.jpg?resize=629%2C593";
-
-const imageUrl =
-  "https://upload.wikimedia.org/wikipedia/commons/d/d0/Medical_X-Ray_imaging_ALP02_nevit.jpg";
 
 function ImageEditor() {
+
+  const {state, dispatch} = useAppContext();
+  const params = useParams();
   const [penSize, setPenSize] = useState(5);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +42,63 @@ function ImageEditor() {
   const [currentColor, setCurrentColor] = useState("#e6104d");
   const offscreenCanvasRef = useRef<HTMLDivElement | null>(null);
   const eraserCursor = getErasorCursor(penSize);
+
+  useEffect(() => {
+    const imageId = params?.id;
+    const storedImage = state.images.find((image: { id: string }) => image.id === imageId);
+    if(storedImage){
+    const img = new window.Image();
+    img.setAttribute("crossOrigin", "anonymous");
+    img.src = storedImage.url;
+    img.onload = () => {
+      setImage(img);
+      const imgNaturalWidth = img.naturalWidth;
+      const imgNaturalHeight = img.naturalHeight;
+      const imgAspectRatio = (1.0 * imgNaturalWidth) / imgNaturalHeight;
+
+      if (
+        containerRef.current?.offsetHeight &&
+        containerRef.current?.offsetWidth
+      ) {
+        setImage(img);
+        let width = 0;
+        let height = 0;
+        if (imgAspectRatio >= 1) {
+          width = containerRef.current.offsetWidth;
+          height = containerRef.current.offsetWidth / imgAspectRatio;
+        } else {
+          width = imgAspectRatio * containerRef.current.offsetHeight;
+          height = containerRef.current.offsetHeight;
+        }
+        setStageWidth(width);
+        setStageHeight(height);
+        const scaleX = width / imgNaturalWidth;
+        const scaleY = height / imgNaturalHeight;
+        setImageScale(Math.max(scaleX, scaleY));
+        setLoaded(true);
+      }
+    };
+  }
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.key === "Delete" || event.key === "Backspace") && selectedId) {
+        const newRectangles = rectangles.filter(
+          (rect) => rect.id !== selectedId
+        );
+        setRectangles(newRectangles);
+        setSelectId(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedId, rectangles]);
+
 
   const checkDeselect = (e: React.SyntheticEvent) => {
     const target = e.target as StageProps;
@@ -215,68 +272,6 @@ function ImageEditor() {
     document.body.removeChild(link);
   }
 
-  useEffect(() => {
-    const img = new window.Image();
-    img.setAttribute("crossOrigin", "anonymous");
-    img.src = imageUrl;
-    img.onload = () => {
-      setImage(img);
-      const imgNaturalWidth = img.naturalWidth;
-      const imgNaturalHeight = img.naturalHeight;
-      const imgAspectRatio = (1.0 * imgNaturalWidth) / imgNaturalHeight;
-
-      if (
-        containerRef.current?.offsetHeight &&
-        containerRef.current?.offsetWidth
-      ) {
-        setImage(img);
-        let width = 0;
-        let height = 0;
-        if (imgAspectRatio >= 1) {
-          width = containerRef.current.offsetWidth;
-          height = containerRef.current.offsetWidth / imgAspectRatio;
-
-          // setDimensions({
-          //   width: containerRef.current.offsetWidth,
-          //   height: containerRef.current.offsetHeight / imgAspectRatio,
-          // });
-        } else {
-          width = imgAspectRatio * containerRef.current.offsetHeight;
-          height = containerRef.current.offsetHeight;
-
-          // setDimensions({
-          //   width: imgAspectRatio * containerRef.current.offsetHeight,
-          //   height: containerRef.current.offsetHeight,
-          // });
-        }
-        setStageWidth(width);
-        setStageHeight(height);
-        const scaleX = width / imgNaturalWidth;
-        const scaleY = height / imgNaturalHeight;
-        setImageScale(Math.max(scaleX, scaleY));
-        setLoaded(true);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.key === "Delete" || event.key === "Backspace") && selectedId) {
-        const newRectangles = rectangles.filter(
-          (rect) => rect.id !== selectedId
-        );
-        setRectangles(newRectangles);
-        setSelectId(null);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedId, rectangles]);
-
   return (
     <Container>
       <Canvas ref={containerRef} height={stageWidth} width={stageHeight}>
@@ -299,14 +294,14 @@ function ImageEditor() {
                 tool === "pen"
                   ? "crosshair"
                   : tool === "eraser"
-                  ? eraserCursor
-                  : "default",
+                    ? eraserCursor
+                    : "default",
             }}
-            // onWheel={(e) => onWheel(e)}
-            // scaleX={stageScale}
-            // scaleY={stageScale}
-            // x={stageX}
-            // y={stageY}
+          // onWheel={(e) => onWheel(e)}
+          // scaleX={stageScale}
+          // scaleY={stageScale}
+          // x={stageX}
+          // y={stageY}
           >
             <Layer>
               {image && (

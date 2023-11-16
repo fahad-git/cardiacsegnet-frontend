@@ -1,7 +1,9 @@
+import { IImages } from "@/utils/schema/images";
 import { Dispatch, ReactNode } from "react";
 
 export interface IState {
-    user: IStateUser
+    user: IStateUser,
+    images: IImages[]
 }
 
 export interface IActions {

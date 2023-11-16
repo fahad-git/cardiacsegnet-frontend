@@ -4,9 +4,9 @@ import { IState } from "@/handlers/context/interfaces";
 
 export function getState(){
     const state = localStorage.getItem("state")
-    return state && JSON.parse(state);
+    return state && JSON.parse(state); //Deserialized
 }
 
 export function saveState(state: IState){
-    localStorage.setItem("state", JSON.stringify(state));
+    localStorage.setItem("state", JSON.stringify(state)); //serialize
 }

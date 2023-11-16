@@ -1,6 +1,12 @@
 
 .image-viewer-container {
     padding: 20px;
+
+
+  }
+
+  .image-viewer-container .loader-container { 
+    left: 50%;
   }
   
   .image-thumbnail {
@@ -18,8 +24,12 @@
     justify-content: center;
     margin-bottom: 16px; 
   }
- 
-  
+
+  .image-box:hover {
+    transform: scale(1.1);
+    /* Add any other styles you want for hover effect */
+  }
+
   .placeholder-icon {
     font-size: 48px; /* Adjust the size of the icon */
   }
@@ -39,4 +49,5 @@
     font-size: 14px;
     width: 200px;
   }
+  
   

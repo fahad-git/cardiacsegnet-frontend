@@ -18,7 +18,8 @@ export function AppContextProvider( {children}: IAppContextProviderProps ): any 
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    useEffect(() => {        
+    useEffect(() => {  
+        // get state return persistent state from localstorage    
         const localState = getState()
         if (!localState) { 
           //checking if there already is a state in localstorage

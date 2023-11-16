@@ -1,4 +1,5 @@
-import { INIT_STORE, INIT_STORE_DEFAULT, UPDATE_USER } from "./actions-constants";
+import { IImages } from "@/utils/schema/images";
+import { INIT_STORE, INIT_STORE_DEFAULT, UPDATE_IMAGES, UPDATE_USER } from "./actions-constants";
 import { IActions, IState, IStateUser } from "./interfaces";
 
 export function initialStoreAction (state: IState) {
@@ -11,4 +12,8 @@ export function initialStoreDefaultAction () {
 
 export function updateUserAction (user: IStateUser) {
     return { type: UPDATE_USER, payload: user } as IActions
+}
+
+export function updateImageAction (images: IImages[]) {
+    return { type: UPDATE_IMAGES, payload: images } as IActions
 }
