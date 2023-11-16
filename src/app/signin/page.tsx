@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -12,14 +13,20 @@ import { useRouter } from 'next/navigation'
 import PATHS from "@/utils/paths";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import Loader from "@/components/loader/loader";
+import Loader from "@/handlers/loader/loader";
 import './signin.css'
+import { useAppContext } from "@/handlers/context/app-context";
+import { getMyProfile } from "@/services/user";
+import { IAppContext, IStateUser } from "@/handlers/context/interfaces";
+import { USER } from "@/handlers/context/actions-constants";
+import { updateUserAction } from "@/handlers/context/actions";
 
 function Signin() {
 
     const router = useRouter();
     const [togglePassword, setTogglePassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const { state, dispatch }: IAppContext = useAppContext();
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
@@ -37,7 +44,25 @@ function Signin() {
         login(credentials)
             .then(res => {
                 if (res.status == RESPONSE_CODES.SUCCESS) {
-                    router.push(PATHS.HOME)
+                    const accessToken = res.data.access_token;
+                    const refreshToken = res.data.refresh_token;
+                    getMyProfile(accessToken)
+                    .then(res => {
+                        if (res.status == RESPONSE_CODES.SUCCESS) {
+                            const user: IStateUser = res.data;
+                            user.accessToken = accessToken;
+                            user.refreshToken = refreshToken
+                            //dispatching it to store
+                            dispatch(updateUserAction(user));
+                            router.push(PATHS.HOME)
+                            setIsLoading(false)
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        setIsLoading(false);
+                        router.push(PATHS.HOME)
+                    })
                 }
                 setIsLoading(false);
             })

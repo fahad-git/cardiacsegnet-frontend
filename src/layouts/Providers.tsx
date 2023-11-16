@@ -3,7 +3,12 @@ import { PropsWithChildren } from "react";
 
 // Providers
 import ThemeRegistry from "@/theme/ThemeRegistry";
+import { AppContextProvider } from "@/handlers/context/app-context";
 
 export function Providers({ children }: PropsWithChildren) {
-  return <ThemeRegistry>{children}</ThemeRegistry>;
+  return (
+      <AppContextProvider>
+        <ThemeRegistry>{children}</ThemeRegistry>;
+      </AppContextProvider>
+  )
 }
