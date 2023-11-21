@@ -15,10 +15,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Loader from "@/handlers/loader/loader";
 import './signin.css'
+import {toastsuccess, toasterror} from "@/components/toastify/toastify";
+import {ERROR_MESSAGES, SUCCESS_MESSAGES} from "@/utils/messages"
 import { useAppContext } from "@/handlers/context/app-context";
 import { getMyProfile } from "@/services/user";
 import { IAppContext, IStateUser } from "@/handlers/context/interfaces";
-import { USER } from "@/handlers/context/actions-constants";
 import { updateUserAction } from "@/handlers/context/actions";
 
 function Signin() {
@@ -46,6 +47,7 @@ function Signin() {
                 if (res.status == RESPONSE_CODES.SUCCESS) {
                     const accessToken = res.data.access_token;
                     const refreshToken = res.data.refresh_token;
+                    toastsuccess("Logging in");
                     getMyProfile(accessToken)
                     .then(res => {
                         if (res.status == RESPONSE_CODES.SUCCESS) {
@@ -61,6 +63,8 @@ function Signin() {
                     .catch(err => {
                         console.log(err)
                         setIsLoading(false);
+                        const errorMessage = ERROR_MESSAGES[err.response.data.message] 
+                        toasterror(errorMessage);
                         router.push(PATHS.HOME)
                     })
                 }
@@ -69,10 +73,13 @@ function Signin() {
             .catch(err => {
                 console.log(err)
                 setIsLoading(false);
+                const errorMessage = ERROR_MESSAGES[err.response.data.message] 
+                toasterror(errorMessage);
             })
     }
 
     return <>
+
 
         <div className="app-container">
             <div className="title">Medical Image Analytics</div>

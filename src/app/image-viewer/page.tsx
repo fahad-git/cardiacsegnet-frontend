@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper, Typography } from "@mui/material";
 import "./image-viewer.css"
 import NoPhotographyOutlinedIcon from '@mui/icons-material/NoPhotographyOutlined';
@@ -46,7 +46,7 @@ function ImageViewer() {
   return <>
     <div className="image-viewer-container">
       <Grid container spacing={2}>
-        {state.images.length == 0 ? <Loader /> : state.images.map((image, index) => (
+        {state?.images?.length == 0 ? <Loader /> : state?.images?.map((image, index) => (
           <Grid item key={index} xs={4}>
             <Paper className="image-box"
               onClick={() => handleImageClick(image.id)}
