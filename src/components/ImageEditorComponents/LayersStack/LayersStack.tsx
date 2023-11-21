@@ -1,54 +1,10 @@
 import React from "react";
-import { Box, Stack } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Stack } from "@mui/material";
 import { RectabgleShape } from "@/utils/types";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
-const StackContainer = styled(Box)(({ theme }) => ({
-  marginTop: "10px",
-  marginBottom: "10px",
-  maxHeight: "250px",
-  overflowX: "hidden",
-  width: "100%",
-  padding: "10px",
-  backgroundColor: theme.palette.common.isabelline,
-  borderRadius: "10px",
-  "::-webkit-scrollbar": {
-    display: "none",
-  },
-}));
-
-const Item = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.common.vistaWhite,
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  height: "30px",
-  paddingLeft: "10px",
-  paddingRight: "10px",
-}));
-
-const IconContainer = styled(Box)(({ theme }) => ({
-  borderLeft: "1px solid",
-  borderLeftColor: theme.palette.common.isabelline,
-  paddingLeft: "5px",
-  paddingTop: "5px",
-  cursor: "pointer",
-}));
-
-const NameContainer = styled(Box)(() => ({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-}));
-
-const RectangleColor = styled(Box)(({ color }: { color: string }) => ({
-  width: "20px",
-  height: "12px",
-  backgroundColor: color,
-  marginLeft: "10px",
-}));
+import { RectangleColor } from "../Style";
+import { IconContainer, Item, NameContainer, StackContainer } from "./Style";
 
 interface LayersStackProps {
   rectangles?: RectabgleShape[];

@@ -1,11 +1,41 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 export const Container = styled(Box)(({ theme }) => ({
   display: "flex",
   width: "100%",
   backgroundColor: theme.palette.common.vistaWhite,
   overflow: "hidden",
+}));
+
+export const DrawerContainer = styled(Box)(() => ({
+  display: "flex",
+  width: "100%",
+}));
+
+export const DrawerButton = styled(Box)(({ theme }) => ({
+  marginLeft: "auto",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "45px",
+  height: "30px",
+  borderRadius: "50px 0px 0px 50px",
+  backgroundColor: theme.palette.common.isabelline,
+  cursor: "pointer",
+  transition: "box-shadow 0.3s ease, transform 0.3s ease",
+  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+  marginBottom: "10px",
+
+  "&:hover": {
+    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+    transform: "scale(1.05)",
+  },
+}));
+
+export const DrawerIcon = styled(ArrowBackIosNewIcon)(({ theme }) => ({
+  color: theme.palette.common.grey,
 }));
 
 export const Canvas = styled(Box)(({ theme }) => ({

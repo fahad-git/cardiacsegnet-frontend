@@ -8,8 +8,7 @@ import React from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Carousel from "react-material-ui-carousel";
 import colors from "@/theme/Colors";
-import { toasterror, toastsuccess } from "../toastify/toastify";
-import { ERROR_MESSAGES } from "@/utils/messages";
+import { toastsuccess } from "../toastify/toastify";
 
 const Maindashboard = () => {
     const [selectedImages, setSelectedImages] = useState<string[]>([]);
@@ -238,4 +237,3 @@ const Maindashboard = () => {
 
 };
 export default Maindashboard;
-

@@ -3,6 +3,7 @@ export interface LineShape {
   points: number[];
   strokeWidth: number;
   color: string;
+  words?: string[];
 }
 
 export interface RectabgleShape {
@@ -14,4 +15,10 @@ export interface RectabgleShape {
   id: string;
   isVisible: boolean;
   rotation?: number;
+  words: string[];
+}
+
+export interface Highlight {
+  word: string;
+  color: string;
 }

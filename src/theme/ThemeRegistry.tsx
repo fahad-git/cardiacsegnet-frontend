@@ -24,6 +24,7 @@ declare module "@mui/material/styles" {
     isabelline: string;
     vistaWhite: string;
     razzmatazz: string;
+    grey: string;
     lightBlue: string;
     lightPurple: string;
     black: string;
@@ -68,6 +69,7 @@ const themeOptions: ThemeOptions = {
       isabelline: colors.isabelline,
       vistaWhite: colors.vistaWhite,
       razzmatazz: colors.razzmatazz,
+      grey: colors.grey,
       lightBlue: colors.lightBlue,
       lightPurple: colors.lightPurple,
       black: colors.black,
