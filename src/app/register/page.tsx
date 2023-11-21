@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import PATHS from "@/utils/paths";
 import Loader from "@/handlers/loader/loader";
 import "./register.css"
+import { ERROR_MESSAGES } from "@/utils/messages";
+import { toasterror, toastsuccess } from "@/components/toastify/toastify";
 
 function Register(){
 
@@ -56,12 +58,15 @@ function Register(){
         .then(res => {
             if(res.status === RESPONSE_CODES.SUCCESS || res.status === RESPONSE_CODES.SUCCESS_WITHOUT_CONTENT){
                 router.push(PATHS.LOGIN)
+                toastsuccess("User registred")
             }
             setIsLoading(false);
         })
         .catch(err => {
             setIsLoading(false);
             console.log(err)
+            const errorMessage = ERROR_MESSAGES[err.response.data.message] 
+            toasterror(errorMessage);
         })
     }
 

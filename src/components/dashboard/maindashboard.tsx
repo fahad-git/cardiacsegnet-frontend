@@ -8,6 +8,8 @@ import React from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Carousel from "react-material-ui-carousel";
 import colors from "@/theme/Colors";
+import { toasterror, toastsuccess } from "../toastify/toastify";
+import { ERROR_MESSAGES } from "@/utils/messages";
 
 const Maindashboard = () => {
     const [selectedImages, setSelectedImages] = useState<string[]>([]);
@@ -32,12 +34,14 @@ const Maindashboard = () => {
                         setSelectedFiles([file, ...selectedFiles]);
                         setLatestReportContent(file);
                         setActiveSlide(0)
+                        toastsuccess("Report uploaded")
                     }// Step 3: Update state with file content
                 };
                 reader.readAsText(file);
             }
         }
         fileInput.click();
+
     }
     const uploadImage = (event: ChangeEvent<HTMLInputElement>) => {
         const fileInput = event.target;
@@ -51,6 +55,7 @@ const Maindashboard = () => {
                         setSelectedImages([image, ...selectedImages]);
                         setLatestSelectedImage(image);
                         setActiveSlide(0);
+                        toastsuccess("Image uploaded")
                     }
                 };
                 reader.readAsDataURL(file);
