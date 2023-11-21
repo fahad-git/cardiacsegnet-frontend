@@ -1,12 +1,21 @@
 "use client";
 import Konva from "konva";
-import Comments from "../Comments/Comments";
+import Highlights from "../Highlights/Highlights";
 import Skeleton from "@mui/material/Skeleton";
 import Rectangle from "../Rectangle/Rectangle";
 import BrushIcon from "@mui/icons-material/Brush";
 import { KonvaEventObject } from "konva/lib/Node";
 import LayersStack from "../LayersStack/LayersStack";
-import { Canvas, Container, ToolMenu, getErasorCursor } from "./Styles";
+import Drawer from "@mui/material/Drawer";
+import {
+  Canvas,
+  Container,
+  DrawerButton,
+  DrawerContainer,
+  DrawerIcon,
+  ToolMenu,
+  getErasorCursor,
+} from "./Styles";
 import { LineShape, RectabgleShape } from "@/utils/types";
 import RectangleIcon from "@mui/icons-material/Rectangle";
 import React, { useState, useRef, useEffect } from "react";
@@ -19,13 +28,12 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import { useRouter, useParams } from "next/navigation";
+import PdfReader from "../PdfEditorComponents/PdfReader/PdfReader";
+import { useParams } from "next/navigation";
 import { useAppContext } from "@/handlers/context/app-context";
 
-
 function ImageEditor() {
-
-  const {state, dispatch} = useAppContext();
+  const { state } = useAppContext();
   const params = useParams();
   const [penSize, setPenSize] = useState(5);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
@@ -41,44 +49,47 @@ function ImageEditor() {
   const [imageScale, setImageScale] = useState(1);
   const [currentColor, setCurrentColor] = useState("#e6104d");
   const offscreenCanvasRef = useRef<HTMLDivElement | null>(null);
+  const [handleDrawer, setHandleDrawer] = useState(false);
   const eraserCursor = getErasorCursor(penSize);
 
   useEffect(() => {
     const imageId = params?.id;
-    const storedImage = state.images.find((image: { id: string }) => image.id === imageId);
-    if(storedImage){
-    const img = new window.Image();
-    img.setAttribute("crossOrigin", "anonymous");
-    img.src = storedImage.url;
-    img.onload = () => {
-      setImage(img);
-      const imgNaturalWidth = img.naturalWidth;
-      const imgNaturalHeight = img.naturalHeight;
-      const imgAspectRatio = (1.0 * imgNaturalWidth) / imgNaturalHeight;
-
-      if (
-        containerRef.current?.offsetHeight &&
-        containerRef.current?.offsetWidth
-      ) {
+    const storedImage = state?.images.find(
+      (image: { id: string }) => image.id === imageId
+    );
+    if (storedImage) {
+      const img = new window.Image();
+      img.setAttribute("crossOrigin", "anonymous");
+      img.src = storedImage.url;
+      img.onload = () => {
         setImage(img);
-        let width = 0;
-        let height = 0;
-        if (imgAspectRatio >= 1) {
-          width = containerRef.current.offsetWidth;
-          height = containerRef.current.offsetWidth / imgAspectRatio;
-        } else {
-          width = imgAspectRatio * containerRef.current.offsetHeight;
-          height = containerRef.current.offsetHeight;
+        const imgNaturalWidth = img.naturalWidth;
+        const imgNaturalHeight = img.naturalHeight;
+        const imgAspectRatio = (1.0 * imgNaturalWidth) / imgNaturalHeight;
+
+        if (
+          containerRef.current?.offsetHeight &&
+          containerRef.current?.offsetWidth
+        ) {
+          setImage(img);
+          let width = 0;
+          let height = 0;
+          if (imgAspectRatio >= 1) {
+            width = containerRef.current.offsetWidth;
+            height = containerRef.current.offsetWidth / imgAspectRatio;
+          } else {
+            width = imgAspectRatio * containerRef.current.offsetHeight;
+            height = containerRef.current.offsetHeight;
+          }
+          setStageWidth(width);
+          setStageHeight(height);
+          const scaleX = width / imgNaturalWidth;
+          const scaleY = height / imgNaturalHeight;
+          setImageScale(Math.max(scaleX, scaleY));
+          setLoaded(true);
         }
-        setStageWidth(width);
-        setStageHeight(height);
-        const scaleX = width / imgNaturalWidth;
-        const scaleY = height / imgNaturalHeight;
-        setImageScale(Math.max(scaleX, scaleY));
-        setLoaded(true);
-      }
-    };
-  }
+      };
+    }
   }, []);
 
   useEffect(() => {
@@ -99,6 +110,19 @@ function ImageEditor() {
     };
   }, [selectedId, rectangles]);
 
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setHandleDrawer(open);
+    };
 
   const checkDeselect = (e: React.SyntheticEvent) => {
     const target = e.target as StageProps;
@@ -123,6 +147,21 @@ function ImageEditor() {
   const handleVisibility = (idx: number) => {
     const rects = rectangles.slice();
     rects[idx] = { ...rects[idx], isVisible: !rects[idx].isVisible };
+    setRectangles(rects);
+  };
+
+  const addHighlights = (idx: number, word: string) => {
+    const rects = rectangles.slice();
+    rects[idx] = { ...rects[idx], words: [...rects[idx].words, word] };
+    setRectangles(rects);
+  };
+
+  const deleteHighlight = (idx: number, word: string) => {
+    const rects = rectangles.slice();
+    rects[idx] = {
+      ...rects[idx],
+      words: rects[idx].words.filter((text) => text !== word),
+    };
     setRectangles(rects);
   };
 
@@ -182,6 +221,7 @@ function ImageEditor() {
           stroke: currentColor,
           id: "rect" + rectangles.length + 1,
           isVisible: true,
+          words: [],
         },
       ]);
     }
@@ -238,7 +278,7 @@ function ImageEditor() {
         if (rect.isVisible) shapesLayer.add(rectShape);
       });
 
-      // Redraw lines (assuming each line is an array of {tool, points})
+      // Redraw lines
       lines.forEach((line) => {
         const lineShape = new Konva.Line({
           points: line.points.map((p) => p / imageScale),
@@ -294,14 +334,14 @@ function ImageEditor() {
                 tool === "pen"
                   ? "crosshair"
                   : tool === "eraser"
-                    ? eraserCursor
-                    : "default",
+                  ? eraserCursor
+                  : "default",
             }}
-          // onWheel={(e) => onWheel(e)}
-          // scaleX={stageScale}
-          // scaleY={stageScale}
-          // x={stageX}
-          // y={stageY}
+            // onWheel={(e) => onWheel(e)}
+            // scaleX={stageScale}
+            // scaleY={stageScale}
+            // x={stageX}
+            // y={stageY}
           >
             <Layer>
               {image && (
@@ -358,6 +398,11 @@ function ImageEditor() {
         )}
       </Canvas>
       <ToolMenu>
+        <DrawerContainer>
+          <DrawerButton onClick={toggleDrawer(true)}>
+            <DrawerIcon />
+          </DrawerButton>
+        </DrawerContainer>
         <ToggleButtonGroup
           value={tool}
           exclusive
@@ -419,11 +464,21 @@ function ImageEditor() {
           rectangles={rectangles}
           handleVisibility={handleVisibility}
         />
-        <Comments />
+        <Highlights rectangles={rectangles} handleDelete={deleteHighlight} />
         <Button variant="contained" onClick={handleSave}>
           Export Image
         </Button>
       </ToolMenu>
+      <Drawer
+        PaperProps={{
+          sx: { width: "80%" },
+        }}
+        anchor={"right"}
+        open={handleDrawer}
+        onClose={toggleDrawer(false)}
+      >
+        <PdfReader rectangles={rectangles} addHighlights={addHighlights} />
+      </Drawer>
     </Container>
   );
 }
