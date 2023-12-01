@@ -6,9 +6,21 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <div>
       <NavbarLoggedIn />
-      <div style={{ display: "flex", height: "calc(100vh - 42px)" }}>
+      <div
+        style={{
+          display: "flex",
+          height: "calc(100vh - 25px)",
+        }}
+      >
         <Sidebar />
-        {children}
+        <div
+          style={{
+            width: "100%",
+            overflow: "scroll",
+          }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

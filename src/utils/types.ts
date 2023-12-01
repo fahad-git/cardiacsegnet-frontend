@@ -22,3 +22,15 @@ export interface Highlight {
   word: string;
   color: string;
 }
+
+export interface PushImageDetailResquestBody {
+  id?: string;
+  url?: string;
+  imageName?: string;
+  imageExtention?: string;
+  imageAnnotations?: {
+    [key: string]: string;
+  };
+  comments?: string;
+  reportUrl?: string;
+}

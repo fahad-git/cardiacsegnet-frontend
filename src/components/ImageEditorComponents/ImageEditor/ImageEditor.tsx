@@ -51,6 +51,7 @@ function ImageEditor() {
   const offscreenCanvasRef = useRef<HTMLDivElement | null>(null);
   const [handleDrawer, setHandleDrawer] = useState(false);
   const eraserCursor = getErasorCursor(penSize);
+  const [reportUrl, setReportUrl] = useState("");
 
   useEffect(() => {
     const imageId = params?.id;
@@ -59,8 +60,8 @@ function ImageEditor() {
     );
     if (storedImage) {
       const img = new window.Image();
-      img.setAttribute("crossOrigin", "anonymous");
       img.src = storedImage.url;
+      setReportUrl(storedImage.reportUrl);
       img.onload = () => {
         setImage(img);
         const imgNaturalWidth = img.naturalWidth;
@@ -234,72 +235,81 @@ function ImageEditor() {
   };
 
   const handleSave = () => {
-    if (image) {
-      const originalWidth = image.naturalWidth;
-      const originalHeight = image.naturalHeight;
+    const imageId = params?.id;
+    const storedImage = state?.images.find(
+      (image: { id: string }) => image.id === imageId
+    );
+    if (storedImage) {
+      const img = new window.Image();
+      img.setAttribute("crossOrigin", "anonymous");
+      img.src = storedImage.url;
+      img.onload = () => {
+        const originalWidth = img.naturalWidth;
+        const originalHeight = img.naturalHeight;
 
-      if (!offscreenCanvasRef.current) {
-        offscreenCanvasRef.current = document.createElement("div");
-        offscreenCanvasRef.current.style.width = originalWidth.toString();
-        offscreenCanvasRef.current.style.height = originalHeight.toString();
-      }
+        if (!offscreenCanvasRef.current) {
+          offscreenCanvasRef.current = document.createElement("div");
+          offscreenCanvasRef.current.style.width = originalWidth.toString();
+          offscreenCanvasRef.current.style.height = originalHeight.toString();
+        }
 
-      const tempStage = new Konva.Stage({
-        width: originalWidth,
-        height: originalHeight,
-        container: offscreenCanvasRef.current!, // This container doesn't actually exist in the DOM
-      });
-
-      const imageLayer = new Konva.Layer();
-      const konvaImage = new Konva.Image({
-        x: 0,
-        y: 0,
-        image: image,
-        width: originalWidth,
-        height: originalHeight,
-      });
-      imageLayer.add(konvaImage);
-      tempStage.add(imageLayer);
-
-      const shapesLayer = new Konva.Layer();
-
-      // Redraw rectangles
-      rectangles.forEach((rect) => {
-        const rectShape = new Konva.Rect({
-          x: rect.x / imageScale,
-          y: rect.y / imageScale,
-          width: rect.width / imageScale,
-          height: rect.height / imageScale,
-          stroke: rect.stroke,
-          strokeWidth: 2.5 / imageScale,
-          rotation: rect.rotation,
-          opacity: 0.75,
+        const tempStage = new Konva.Stage({
+          width: originalWidth,
+          height: originalHeight,
+          container: offscreenCanvasRef.current!, // This container doesn't actually exist in the DOM
         });
-        if (rect.isVisible) shapesLayer.add(rectShape);
-      });
 
-      // Redraw lines
-      lines.forEach((line) => {
-        const lineShape = new Konva.Line({
-          points: line.points.map((p) => p / imageScale),
-          stroke: line.color,
-          strokeWidth: line.strokeWidth / imageScale,
-          tension: 0.5,
-          lineCap: "round",
-          lineJoin: "round",
-          globalCompositeOperation:
-            line.tool === "eraser" ? "destination-out" : "source-over",
-          opacity: line.tool === "eraser" ? 1 : 0.65,
+        const imageLayer = new Konva.Layer();
+        const konvaImage = new Konva.Image({
+          x: 0,
+          y: 0,
+          image: img,
+          width: originalWidth,
+          height: originalHeight,
         });
-        shapesLayer.add(lineShape);
-      });
+        imageLayer.add(konvaImage);
+        tempStage.add(imageLayer);
 
-      tempStage.add(shapesLayer);
+        const shapesLayer = new Konva.Layer();
 
-      const dataURL = tempStage.toDataURL();
+        // Redraw rectangles
+        rectangles.forEach((rect) => {
+          const rectShape = new Konva.Rect({
+            x: rect.x / imageScale,
+            y: rect.y / imageScale,
+            width: rect.width / imageScale,
+            height: rect.height / imageScale,
+            stroke: rect.stroke,
+            strokeWidth: 2.5 / imageScale,
+            rotation: rect.rotation,
+            opacity: 0.75,
+          });
+          if (rect.isVisible) shapesLayer.add(rectShape);
+        });
 
-      // Download the image
-      downloadURI(dataURL, "savedImage.png");
+        // Redraw lines
+        lines.forEach((line) => {
+          const lineShape = new Konva.Line({
+            points: line.points.map((p) => p / imageScale),
+            stroke: line.color,
+            strokeWidth: line.strokeWidth / imageScale,
+            tension: 0.5,
+            lineCap: "round",
+            lineJoin: "round",
+            globalCompositeOperation:
+              line.tool === "eraser" ? "destination-out" : "source-over",
+            opacity: line.tool === "eraser" ? 1 : 0.65,
+          });
+          shapesLayer.add(lineShape);
+        });
+
+        tempStage.add(shapesLayer);
+
+        const dataURL = tempStage.toDataURL();
+
+        // Download the image
+        downloadURI(dataURL, "savedImage.png");
+      };
     }
   };
 
@@ -477,7 +487,11 @@ function ImageEditor() {
         open={handleDrawer}
         onClose={toggleDrawer(false)}
       >
-        <PdfReader rectangles={rectangles} addHighlights={addHighlights} />
+        <PdfReader
+          url={reportUrl ?? ""}
+          rectangles={rectangles}
+          addHighlights={addHighlights}
+        />
       </Drawer>
     </Container>
   );
