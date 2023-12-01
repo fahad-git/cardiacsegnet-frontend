@@ -2,83 +2,70 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Grid, Paper, Typography } from "@mui/material";
-import "./image-viewer.css"
-import NoPhotographyOutlinedIcon from '@mui/icons-material/NoPhotographyOutlined';
+import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
+import "./image-viewer.css";
+import NoPhotographyOutlinedIcon from "@mui/icons-material/NoPhotographyOutlined";
 import { getAllImages } from "@/services/images";
 import { RESPONSE_CODES } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import PATHS from "@/utils/paths";
-import Loader from "@/handlers/loader/loader";
 import { useAppContext } from "@/handlers/context/app-context";
 import { updateImageAction } from "@/handlers/context/actions";
 
 function ImageViewer() {
-
   const router = useRouter();
   const { state, dispatch } = useAppContext();
 
   useEffect(() => {
-    // Fetch images from the API endpoint
+    const fetchImages = async () => {
+      const response = await getAllImages();
+      if (response.status === RESPONSE_CODES.SUCCESS) {
+        dispatch(updateImageAction(response.data));
+        // setImages(response.data); // Update state with fetched images
+      } else {
+        console.log("Error occured!");
+      }
+    };
     fetchImages();
   }, []);
-
-  const fetchImages = async () => {
-    const response = await getAllImages();
-    if (response.status === RESPONSE_CODES.SUCCESS) {
-      dispatch(updateImageAction(response.data));
-      // setImages(response.data); // Update state with fetched images
-    } else {
-      console.log("Error occured!")
-    }
-  };
 
   const handleImageClick = (imageId: string) => {
     // const selectedImage = images.find((image) => image.id === imageId);
     if (imageId) {
       router.push(`${PATHS.IMAGE_EDITOR}/${imageId}`);
-    }
-    else {
+    } else {
       console.error(`Invalid Image id`);
     }
-  }
+  };
 
-  return <>
-    <div className="image-viewer-container">
-      <Grid container spacing={2}>
-        {state?.images?.length == 0 ? <Loader /> : state?.images?.map((image, index) => (
-          <Grid item key={index} xs={4}>
-            <Paper className="image-box"
-              onClick={() => handleImageClick(image.id)}
-
-            >
-              {(image?.url && image.url !== "") ? (
-                <>
-                  <img
-                    src={image.url}
-                    alt={`Image ${index + 1}`}
-                    className="image-thumbnail"
-                  />
-
-                </>
-              ) : (
-                <NoPhotographyOutlinedIcon className="placeholder-icon" />
-
-              )}
-            </Paper>
-            <div className="captions-container">
-              <Typography
-                key={index} className="image-caption"
-              >
-                {image.imageName}
-              </Typography>
-            </div>
-          </Grid>
-        ))}
-
-      </Grid>
-    </div>
-  </>
+  return (
+    <>
+      <div className="image-viewer-container">
+        {state?.images?.length ? (
+          <ImageList
+            sx={{ width: "100%", height: "100vh" }}
+            variant="quilted"
+            cols={4}
+            rowHeight={310}
+          >
+            {state?.images?.map((item, index) => (
+              <ImageListItem key={"img_" + index}>
+                <img
+                  onClick={() => handleImageClick(item.id)}
+                  src={item.url}
+                  alt={item.imageName}
+                  loading="lazy"
+                />
+                <ImageListItemBar title={item.imageName} position="bottom" />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        ) : (
+          <NoPhotographyOutlinedIcon className="placeholder-icon" />
+        )}
+      </div>
+    </>
+  );
 }
 
 export default ImageViewer;

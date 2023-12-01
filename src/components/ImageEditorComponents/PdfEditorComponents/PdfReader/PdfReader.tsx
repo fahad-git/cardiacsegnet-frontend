@@ -12,10 +12,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 interface PdfReaderProps {
   rectangles?: RectabgleShape[];
   addHighlights: (idx: number, word: string) => void;
+  url: string;
   // lines?: LineShape[];
 }
 
-function PdfReader({ rectangles, addHighlights }: PdfReaderProps) {
+function PdfReader({ rectangles, addHighlights, url }: PdfReaderProps) {
   const [numPages, setNumPages] = useState<number>(0);
   const [, setLoading] = useState(false);
   const [pageWidth, setPageWidth] = useState(0);
@@ -111,7 +112,9 @@ function PdfReader({ rectangles, addHighlights }: PdfReaderProps) {
       <PdfContainer>
         <Document
           onMouseUp={onMouseUp}
-          file="https://pdfobject.com/pdf/sample.pdf"
+          file={{
+            url: url ? url : "https://pdfobject.com/pdf/sample.pdf",
+          }}
           onLoadSuccess={onDocumentLoadSuccess}
           options={options}
         >

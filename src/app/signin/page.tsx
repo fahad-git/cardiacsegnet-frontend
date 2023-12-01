@@ -67,8 +67,10 @@ function Signin() {
                         toasterror(errorMessage);
                         router.push(PATHS.HOME)
                     })
+                } 
+                else {
+                    setIsLoading(false);
                 }
-                setIsLoading(false);
             })
             .catch(err => {
                 console.log(err)
