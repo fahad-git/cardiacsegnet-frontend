@@ -32,7 +32,7 @@ function ImageViewer() {
   const handleImageClick = (imageId: string) => {
     // const selectedImage = images.find((image) => image.id === imageId);
     if (imageId) {
-      router.push(`${PATHS.IMAGE_EDITOR}/${imageId}`);
+      router.push(`${PATHS.HOME}/${imageId}`);
     } else {
       console.error(`Invalid Image id`);
     }

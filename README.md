@@ -1,4 +1,4 @@
-# Medical Image Analytics
+# CardiacSegNet
 
 ## Prerequisites
 

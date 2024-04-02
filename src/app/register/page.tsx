@@ -72,9 +72,9 @@ function Register(){
 
     return <>
         <div className="app-container ">
-            <div className="title">Medical Image Analytics</div>
+            <div className="title"><img src="/logo-green.png" className="logo-green" alt="MIA"/></div>
             <div className="card">
-                <h4 className="card-header">Register</h4>
+                <h4 className="card-header base-color">Register</h4>
                 {isLoading && (
                     <>
                         <div className="register-loader-container"></div>
@@ -105,11 +105,11 @@ function Register(){
                             {togglePasswordConfirm ? <VisibilityIcon className="password-confirm-icon" onClick={() => setTogglePasswordConfirm(!togglePasswordConfirm)} />: <VisibilityOffIcon className="password-confirm-icon" onClick={() => setTogglePasswordConfirm(!togglePasswordConfirm)}/>}
                             <div className="invalid-feedback">{errors.passwordConfirmation?.message}</div>
                         </div>
-                        <button disabled={formState.isSubmitting} className="btn btn-primary">
+                        <button disabled={formState.isSubmitting} className="btn btn-primary register-btn ">
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             Register
                         </button>
-                        <Link href={PATHS.LOGIN} className="btn btn-link">Cancel</Link>
+                        <Link href={PATHS.LOGIN} className="btn btn-link base-color">Cancel</Link>
                     </form>
                 </div>
             </div>

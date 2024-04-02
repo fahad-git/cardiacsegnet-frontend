@@ -12,3 +12,15 @@
   height: 100%;
   position: absolute;
   }
+
+  .register-btn {
+    background-color: #007C01 !important;
+ }
+ 
+ .cancel-link{
+   text-align: right;
+ }
+ 
+ .base-color { 
+   color: #007C01 !important;
+ }

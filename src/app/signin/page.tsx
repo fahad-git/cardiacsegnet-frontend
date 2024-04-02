@@ -21,6 +21,7 @@ import { useAppContext } from "@/handlers/context/app-context";
 import { getMyProfile } from "@/services/user";
 import { IAppContext, IStateUser } from "@/handlers/context/interfaces";
 import { updateUserAction } from "@/handlers/context/actions";
+import { Button } from "@mui/material";
 
 function Signin() {
 
@@ -84,9 +85,9 @@ function Signin() {
 
 
         <div className="app-container">
-            <div className="title">Medical Image Analytics</div>
+            <div className="title"><img src="/logo-green.png" className="logo-green" alt="MIA"/></div>
             <div className="card">
-                <h4 className="card-header">Login</h4>
+                <h4 className="card-header base-color">Login</h4>
                 {isLoading && (
                     <>
                         <div className="signin-loader-container"></div>
@@ -106,11 +107,12 @@ function Signin() {
                             {togglePassword ? <VisibilityIcon className="password-confirm-icon" onClick={() => setTogglePassword(!togglePassword)} /> : <VisibilityOffIcon className="password-confirm-icon" onClick={() => setTogglePassword(!togglePassword)} />}
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
-                        <button disabled={formState.isSubmitting} className="btn btn-primary">
+                        <button disabled={formState.isSubmitting} className="btn btn-primary signin-btn">
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             Login
                         </button>
-                        <Link href="/register" className="btn btn-link">Register</Link>
+                        {/* <Link href="/register" className="btn btn-link base-color">Forgot Password?</Link> */}
+                        <Link href="/register" className="btn btn-link base-color register-link">Register</Link>
                     </form>
                 </div>
             </div>

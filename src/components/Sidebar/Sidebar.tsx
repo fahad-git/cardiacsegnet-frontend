@@ -14,7 +14,6 @@ import Typography from "@mui/material/Typography";
 
 // Utils
 import { SIDEBAR_ITEMS } from "../../utils/constants";
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import HomeIcon from '@mui/icons-material/Home';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
@@ -57,8 +56,6 @@ const Sidebar = () => {
 
   const renderIcon = (iconName: string) =>{
     switch(iconName){
-      case 'Dashboard':
-        return <DashboardIcon />
       case 'Home':
         return <HomeIcon />
       case 'PhotoLibrary':
@@ -78,26 +75,8 @@ const Sidebar = () => {
     <Container toggle={1}>
       <InnerContainer>
         <Organization>
-          {/* <Box sx={{ display: "flex", alignItems: "center" }}>
-            <StyledIconButton sx={{ marginLeft: "-6px" }}>
-              <Logo width="36" height="36" />
-            </StyledIconButton>
-            {true && (
-              <Typography
-                sx={{
-                  marginLeft: "5px",
-                  ...theme.typography.body1,
-                  fontWeight: 900,
-                  color: theme.palette.common.black,
-                }}
-              >
-                Medical Image Analytics
-              </Typography>
-            )}
-          </Box> */}
           {true && (
             <StyledIconButton
-            // onClick={() => setToggle(!toggle)}
             >
               {/* <ArrowLeft /> */}
             </StyledIconButton>
@@ -111,10 +90,7 @@ const Sidebar = () => {
             onClick={() => onItemClick(item.path)}
           >
             <NavItem
-            //   onClick={() => handleNavItem(index, item.name)}
-            //   isactive={index === activeItem ? 1 : 0}
             >
-              {/* {item.icon({ isActiveTab: index === activeItem ? true : false })} */}
               {true && (
                 <Typography
                   sx={{

@@ -12,3 +12,15 @@
   height: 100%;
   position: absolute;
   }
+
+.signin-btn {
+   background-color: #007C01 !important;
+}
+
+.register-link{
+  text-align: right;
+}
+
+.base-color { 
+  color: #007C01 !important;
+}

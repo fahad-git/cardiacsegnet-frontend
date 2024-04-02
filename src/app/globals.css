@@ -46,7 +46,7 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
 
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
+    --primary-glow: radial-gradient(rgba(0, 124, 1, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
       to bottom right,
       rgba(1, 65, 255, 0),
@@ -111,7 +111,7 @@ a { cursor: pointer; }
 }
 
 .title {
-  color: #007bff;
+  color: #007C01;
   font-size: xxx-large;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: bolder;
@@ -142,8 +142,12 @@ a { cursor: pointer; }
 }
 
 .logo {
-  width: 70px;
-  height: 70px;
+  width: 260px;
+  /* height: 70px; */
+}
+
+.logo-green {
+  width: 500px;
 }
 
 .avatar {
@@ -161,4 +165,13 @@ a { cursor: pointer; }
 
 .custom-loader-container .loader-container { 
   left: 50%;
+}
+
+.image-show { 
+  width: 300px; 
+  max-height: 500px; 
+}
+
+.img-h2 {
+  text-align: center;
 }

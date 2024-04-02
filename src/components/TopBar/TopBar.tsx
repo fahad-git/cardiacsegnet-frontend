@@ -16,7 +16,7 @@ function TopBar() {
           color: theme.palette.common.black,
         }}
       >
-        Medical Image Analytics
+        CardiacSegNet
       </Typography>
     </TopBarContainer>
   );

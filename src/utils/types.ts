@@ -26,6 +26,8 @@ export interface Highlight {
 export interface PushImageDetailResquestBody {
   id?: string;
   url?: string;
+  segUrl?: string;
+  xaiUrl?: string;
   imageName?: string;
   imageExtention?: string;
   imageAnnotations?: {

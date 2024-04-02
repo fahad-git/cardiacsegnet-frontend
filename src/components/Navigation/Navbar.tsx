@@ -8,13 +8,13 @@ export function navbar() {
       sx={{
         width: "100%",
         height: 65,
-        bgcolor: colors.lightBlue,
+        bgcolor: colors.green,
         display: "flex",
         justifyContent: 'center',
         alignItems: 'center'
       }}
     >
-    <p> Medical Image Analytics </p>  
+    <p>  CardiacSegNet </p>  
     </Box>
   );
 } 

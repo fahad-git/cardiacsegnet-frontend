@@ -29,6 +29,8 @@ declare module "@mui/material/styles" {
     lightPurple: string;
     black: string;
     white: string;
+    green: string;
+    lightGreen: string;
   }
 }
 
@@ -58,7 +60,7 @@ const themeOptions: ThemeOptions = {
       default: "#ffffff",
     },
     primary: {
-      main: colors.lightBlue,
+      main: colors.green,
     },
     text: {
       primary: colors.black,
@@ -73,7 +75,9 @@ const themeOptions: ThemeOptions = {
       lightBlue: colors.lightBlue,
       lightPurple: colors.lightPurple,
       black: colors.black,
-      white: colors.white
+      white: colors.white,
+      green: colors.green,
+      lightGreen: colors.lightGreen
     },
   },
 };

@@ -29,7 +29,7 @@ export function navbarLoggedIn() {
       sx={{
         width: "100%",
         height: 65,
-        bgcolor: colors.lightBlue,
+        bgcolor: colors.green,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -39,7 +39,7 @@ export function navbarLoggedIn() {
     >
       <Box><img src="/logo.png" className="logo" alt="MIA"/> </Box>
 
-      <Box><h2>Medical Image Analytics</h2></Box>
+      <Box><h2>CardiacSegNet</h2></Box>
 
       <Box
         sx={{
@@ -67,12 +67,6 @@ export function navbarLoggedIn() {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem>
-            {" "}
-            <Link href={PATHS.DASHBOARD} underline="none" color="inherit">
-              Dashboard
-            </Link>
-          </MenuItem>
           <MenuItem>
             {" "}
             <Link href={PATHS.HOME} underline="none" color="inherit">
