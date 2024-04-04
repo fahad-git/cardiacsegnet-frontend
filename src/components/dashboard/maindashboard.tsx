@@ -65,6 +65,7 @@ const Maindashboard = () => {
         );
         if (storedImage) {
           setNewImage(storedImage)
+          console.log(newImage)
         }
     }
   }, []);
@@ -238,7 +239,7 @@ const Maindashboard = () => {
           </Grid>
       </Grid>
       </Grid>
-    {
+    {/* {
       newImage &&
       <Grid
         container
@@ -276,7 +277,7 @@ const Maindashboard = () => {
               />
         </Grid>
       </Grid>
-    }
+    } */}
     </Grid>
   );
 };

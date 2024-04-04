@@ -8,7 +8,9 @@ import Maindashboard from "@/components/dashboard/maindashboard";
 
 function Home(){
 
-    return <><Maindashboard /></>
+    return <><Maindashboard />
+    {/* <NiftiReader/> */}
+    </>
 }
 
 export default Home
