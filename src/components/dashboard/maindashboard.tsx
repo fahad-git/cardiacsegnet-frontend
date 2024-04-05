@@ -85,9 +85,22 @@ const Maindashboard = () => {
             id: imageId,
             imageExtention: res.data.filename.split(".")[1],
             imageName: res.data.filename,
-            url: CONFIG.url[ENVIRONMENT] + res.data.url,
+            orgUrl: CONFIG.url[ENVIRONMENT] + res.data.orgUrl,
             segUrl: CONFIG.url[ENVIRONMENT] + res.data.segUrl,
             xaiUrl: CONFIG.url[ENVIRONMENT] + res.data.xaiUrl,
+
+            orgDim1Url: CONFIG.url[ENVIRONMENT] + res.data.orgDim1Url,
+            orgDim2Url: CONFIG.url[ENVIRONMENT] + res.data.orgDim2Url,
+            orgDim3Url: CONFIG.url[ENVIRONMENT] + res.data.orgDim3Url,
+
+            segDim1Url: CONFIG.url[ENVIRONMENT] + res.data.segDim2Url,
+            segDim2Url: CONFIG.url[ENVIRONMENT] + res.data.segDim2Url,
+            segDim3Url: CONFIG.url[ENVIRONMENT] + res.data.segDim3Url,
+
+            xaiDim1Url: CONFIG.url[ENVIRONMENT] + res.data.xaiDim1Url,
+            xaiDim2Url: CONFIG.url[ENVIRONMENT] + res.data.xaiDim2Url,
+            xaiDim3Url: CONFIG.url[ENVIRONMENT] + res.data.xaiDim3Url,
+            
             imageAnnotations: {},
             reportUrl: "",
             comments: "",

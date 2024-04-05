@@ -54,7 +54,7 @@ const ImageView = () => {
             <h4 className="img-h2">Org Img Dim 1</h4>
             <img
                 className="image-show"
-                src={newImage?.url ?? ""}
+                src={newImage?.orgDim1Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -63,7 +63,7 @@ const ImageView = () => {
             <h4 className="img-h2">Org Img Dim 2</h4>
             <img
                 className="image-show"
-                src={newImage?.segUrl ?? ""}
+                src={newImage?.orgDim2Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -72,7 +72,7 @@ const ImageView = () => {
             <h4 className="img-h2">Org Img Dim 3</h4>
             <img
                 className="image-show"
-                src={newImage?.xaiUrl ?? ""}
+                src={newImage?.orgDim3Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -91,7 +91,7 @@ const ImageView = () => {
             <h4 className="img-h2">Seg Img Dim 1</h4>
             <img
                 className="image-show"
-                src={newImage?.url ?? ""}
+                src={newImage?.segDim1Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -100,7 +100,7 @@ const ImageView = () => {
             <h4 className="img-h2">Seg Img Dim 1</h4>
             <img
                 className="image-show"
-                src={newImage?.segUrl ?? ""}
+                src={newImage?.segDim2Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -109,7 +109,7 @@ const ImageView = () => {
             <h4 className="img-h2">Seg Img Dim 1</h4>
             <img
                 className="image-show"
-                src={newImage?.xaiUrl ?? ""}
+                src={newImage?.segDim3Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -128,7 +128,7 @@ const ImageView = () => {
             <h4 className="img-h2">XAI Img Dim 1</h4>
             <img
                 className="image-show"
-                src={newImage?.url ?? ""}
+                src={newImage?.xaiDim1Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -137,7 +137,7 @@ const ImageView = () => {
             <h4 className="img-h2">XAI Img Dim 2</h4>
             <img
                 className="image-show"
-                src={newImage?.segUrl ?? ""}
+                src={newImage?.xaiDim2Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />
@@ -146,7 +146,7 @@ const ImageView = () => {
             <h4 className="img-h2">XAI Img Dim 3</h4>
             <img
                 className="image-show"
-                src={newImage?.xaiUrl ?? ""}
+                src={newImage?.xaiDim3Url ?? ""}
                 alt={newImage?.imageName}
                 loading="lazy"
                 />

@@ -52,7 +52,7 @@ function ImageViewer() {
               <ImageListItem key={"img_" + index}>
                 <img
                   onClick={() => handleImageClick(item.id)}
-                  src={item.url}
+                  src={item.orgDim3Url}
                   alt={item.imageName}
                   loading="lazy"
                 />
