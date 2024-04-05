@@ -8,7 +8,7 @@ import React from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Carousel from "react-material-ui-carousel";
 import colors from "@/theme/Colors";
-import { toasterror, toastsuccess } from "../toastify/toastify";
+import { toasterror, toastsuccess, toastinfo } from "../toastify/toastify";
 import { getAllImages, pushImageDetailRequest, uploadImageRequest } from "@/services/images";
 import { v4 as uuid } from "uuid";
 import CONFIG, { ENVIRONMENT } from "@/utils/config";
@@ -17,6 +17,7 @@ import { useParams, useRouter } from "next/navigation";
 import { RESPONSE_CODES } from "@/utils/constants";
 import { updateImageAction } from "@/handlers/context/actions";
 import PATHS from "@/utils/paths";
+import Loader from "@/handlers/loader/loader";
 interface fileListType {
   file: File;
   encodedFile: string;
@@ -27,6 +28,7 @@ const Maindashboard = () => {
   const router = useRouter();
   const { state, dispatch } = useAppContext();
   const params = useParams();
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedImages, setSelectedImages] = useState<fileListType[]>([]);
   const [latestSelectedImage, setLatestSelectedImage] = useState<string | null>(
     null
@@ -40,12 +42,15 @@ const Maindashboard = () => {
 
   useEffect(() => {
     const fetchImages = async () => {
+      setIsLoading(true)
       const response = await getAllImages();
       if (response.status === RESPONSE_CODES.SUCCESS) {
         dispatch(updateImageAction(response.data));
+        setIsLoading(false)
         // setImages(response.data); // Update state with fetched images
       } else {
         console.log("Error occured!");
+        setIsLoading(false)
       }
     };
     console.log(callApi)
@@ -71,6 +76,8 @@ const Maindashboard = () => {
   }, []);
 
   const handleUpload = async () => {
+    setIsLoading(true)
+    toastinfo("You image is uploading...")
     const uploadFile = async (file: File) => {
       const form = new FormData();
       form.append("image", file);
@@ -106,20 +113,24 @@ const Maindashboard = () => {
             comments: "",
           });
           toastsuccess("Image Saved");
+          setIsLoading(false)
           setTimeout(()=>{
-            router.push(`${PATHS.HOME}/${imageId}`);
-            setTimeout(()=>{
-              window.location.reload()
-            }, 2000)
+            router.push(`${PATHS.IMAGE_VIEWER}`);
           }, 2000)
+        } else {
+          toasterror("Failed to upload");
+          setIsLoading(false)
         }
       } catch (e) {
         toasterror("Error while uploading");
+        setIsLoading(false)
       }
     }
   };
 
   const uploadImage = (event: ChangeEvent<HTMLInputElement>) => {
+    toastinfo("Your image is loading...")
+    setIsLoading(true)
     const fileInput = event.target;
     if (fileInput && fileInput.files) {
       const file = fileInput.files[0];
@@ -134,10 +145,17 @@ const Maindashboard = () => {
             ]);
             setLatestSelectedImage(image);
             setActiveSlide(0);
+            setIsLoading(false)
           }
         };
         reader.readAsDataURL(file);
+      } else{
+        toasterror("Failed to load image.")
+        setIsLoading(false)  
       }
+    } else{
+      toasterror("Failed to load image.")
+      setIsLoading(false)  
     }
   };
 
@@ -181,7 +199,15 @@ const Maindashboard = () => {
             position: "relative",
           }}
         >
-          {latestSelectedImage ? (
+        {
+        isLoading ? (
+                  <>
+                      <div className="dashboard-loader-container"></div>
+                      <Loader />
+                  </>
+        ) :
+
+          (latestSelectedImage ? (
             <div style={{ width: "100%", height: "100%" }}>
               <Carousel
                 // value={activeSlide}
@@ -223,7 +249,8 @@ const Maindashboard = () => {
             >
               <UploadFileIcon fontSize="large" className="upload-icon-large" />
             </div>
-          )}
+          ))
+          }
         </Grid>
       </Grid>
       <br />
@@ -240,13 +267,13 @@ const Maindashboard = () => {
               id="imageInput"
             />
             <label htmlFor="imageInput">
-              <Button variant="contained" color="primary" component="span">
+              <Button variant="contained" disabled={isLoading} color="primary" component="span">
                 Load Image
               </Button>
             </label>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" onClick={handleUpload}>
+            <Button variant="contained" disabled={isLoading} color="primary" onClick={handleUpload}>
               Upload
             </Button>
           </Grid>

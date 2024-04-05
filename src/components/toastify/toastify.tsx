@@ -10,3 +10,7 @@ export function toastsuccess(message:string) {
 export function toasterror(message:string) {
     toast.error(message)
 }
+
+export function toastinfo(message:string) {
+    toast.info(message)
+}
