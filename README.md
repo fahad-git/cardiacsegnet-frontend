@@ -9,6 +9,8 @@ CardiacSegNet Frontend is a web-based application designed to facilitate the vis
 - **Interactive Tools:** Utilize tools for zooming, panning, and adjusting image parameters to enhance analysis.
 - **Data Management:** Upload, organize, and manage cardiac MRI datasets efficiently.
 
+![CardiacSegNet](https://github.com/user-attachments/assets/8d35f268-6de6-49db-894b-b21b585befe7)
+
 ## Prerequisites
 
 Before setting up the project, ensure you have the following installed:
